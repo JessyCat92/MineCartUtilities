@@ -26,7 +26,9 @@ pipeline {
       }
     }
     stage('Publish Artifacts') {
-      archiveArtifacts artifacts: '**/target/*.jar'
+      steps {
+        archiveArtifacts artifacts: '**/target/*.jar'
+      }
     }
   }
 }
