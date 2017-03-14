@@ -20,7 +20,7 @@ pipeline {
     stage('Build-Package') {
       steps {
         script {
-          def mvnHome = tool 'maven-3'
+          def mvnHome = tool 'Maven'
           sh "${mvnHome}/bin/mvn clean package -DskipTests"
         }
       }
