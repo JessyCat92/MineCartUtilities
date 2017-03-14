@@ -4,7 +4,7 @@ pipeline {
     stage('Sonar-Scanner') {
       steps {
         script {
-          def scannerHome = tool 'SonarQube Scanner 2.8';
+          def scannerHome = tool 'SonarQube';
           withSonarQubeEnv('SonarQube Scanner 2.8') {
             sh '${scannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://localhost:9000 -Dsonar.projectKey=mc:mcu -Dsonar.projectName=MineCartUtilities -Dsonar.projectVersion=${BUILD_DISPLAY_NAME}'
           }
