@@ -5,9 +5,7 @@ pipeline {
       steps {
         script {
           withSonarQubeEnv('TerraTex SonarQube') {
-            def scannerHome = tool 'SonarQubeScanner';
-            sh 'env';
-            sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=mc:mcu -Dsonar.projectName=MineCartUtilities -Dsonar.projectVersion=${BUILD_DISPLAY_NAME}'
+            sh "${tool 'SonarQubeScanner'}/bin/sonar-scanner -Dsonar.projectKey=mc:mcu -Dsonar.projectName=MineCartUtilities -Dsonar.projectVersion=${BUILD_DISPLAY_NAME}"
           }
 
           timeout(time: 1, unit: 'HOURS') {
