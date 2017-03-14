@@ -1,9 +1,8 @@
 pipeline {
   agent any
   stages {
-    stage('Sonar-Scan') {
+    stage('Sonar-Scanner') {
       steps {
-        def scannerHome = tool 'SonarQubeScanner';
         withSonarQubeEnv('SonarQubeScanner') {
           sh '${scannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://localhost:9000 -Dsonar.projectKey=mc:mcu -Dsonar.projectName=MineCartUtilities -Dsonar.projectVersion=${BUILD_DISPLAY_NAME}'
         }
