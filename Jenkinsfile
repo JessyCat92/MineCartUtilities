@@ -17,5 +17,13 @@ pipeline {
         }
       }
     }
+    stage('Build-Package') {
+      steps {
+        script {
+          def mvnHome = tool 'maven-3'
+          sh "${mvnHome}/bin/mvn clean package -DskipTests"
+        }
+      }
+    }
   }
 }
