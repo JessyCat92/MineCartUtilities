@@ -6,46 +6,53 @@ import org.bukkit.ChatColor;
 
 public class Logger {
     private Logger() {}
+    public enum LogLevel {
+        INFO,
+        ERROR,
+        DEBUG,
+        WARNING,
+        LOG
+    }
 
     public static void info(String msg) {
-        Logger.runLogging("info", ChatColor.BLUE, msg);
+        Logger.runLogging(LogLevel.INFO, ChatColor.BLUE, msg);
     }
 
     public static void error(String msg) {
-        Logger.runLogging("error", ChatColor.RED, msg);
+        Logger.runLogging(LogLevel.ERROR, ChatColor.RED, msg);
     }
 
     public static void debug(String msg) {
-        Logger.runLogging("debug", ChatColor.LIGHT_PURPLE, msg);
+        Logger.runLogging(LogLevel.DEBUG, ChatColor.LIGHT_PURPLE, msg);
     }
 
     public static void debugOnDebug(String msg) {
         if (MineCartUtilities.getInstance().getConfig().getBoolean("debug")) {
-            Logger.runLogging("debug", ChatColor.LIGHT_PURPLE, msg);
+            Logger.runLogging(LogLevel.DEBUG, ChatColor.LIGHT_PURPLE, msg);
         }
     }
 
     public static void success(String msg) {
-        Logger.runLogging("info", ChatColor.GREEN, msg);
+        Logger.runLogging(LogLevel.INFO, ChatColor.GREEN, msg);
     }
 
-    public static void customInfo(ChatColor color, String msg) {
-        Logger.runLogging("info", color, msg);
+    public static void custom(LogLevel loglevel, ChatColor color, String msg) {
+        Logger.runLogging(loglevel, color, msg);
     }
 
     public static void warning(String msg) {
-        Logger.runLogging("warning", ChatColor.YELLOW, msg);
+        Logger.runLogging(LogLevel.WARNING, ChatColor.YELLOW, msg);
     }
 
     public static void log(String msg) {
-        Logger.runLogging("log", ChatColor.WHITE, msg);
+        Logger.runLogging(LogLevel.LOG, ChatColor.WHITE, msg);
     }
 
-    private static void runLogging(String logLevel, ChatColor color, String msg) {
+    private static void runLogging(LogLevel logLevel, ChatColor color, String msg) {
         String name = MineCartUtilities.getInstance().getDescription().getName();
         String version = MineCartUtilities.getInstance().getDescription().getVersion();
 
-        String sendMsg = "[" + name + " " + version + "] [" + logLevel.toUpperCase() + "] " + msg;
+        String sendMsg = "[" + name + " " + version + "] [" + logLevel.name() + "] " + msg;
         Bukkit.getConsoleSender().sendMessage(color + sendMsg);
     }
 }
