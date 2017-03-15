@@ -61,7 +61,7 @@
         <url>https://github.com/geramy92/MineCartUtilities/issues</url>
     </issueManagement>
     <ciManagement>
-        <url>https://travis-ci.org/Wirlie/AllBanks-2</url>
+        <url>http://build.terratex.eu:8080/blue/organizations/jenkins/MC/</url>
     </ciManagement>
 
     <build>

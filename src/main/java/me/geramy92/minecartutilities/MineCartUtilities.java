@@ -5,7 +5,6 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MineCartUtilities extends JavaPlugin {
@@ -14,8 +13,14 @@ public class MineCartUtilities extends JavaPlugin {
     @Override
     public void onEnable() {
         MineCartUtilities.mineCartUtilitiesInstance = this;
+        this.loadConfiguration();
+        Logger.success("Started MineCartUtilities successfully");
+    }
 
-        // ensure config file
+    /**
+     *  Load Configuration or Create Configuration if it does not exist
+     */
+    private void loadConfiguration() {
         File configFile = new File(MineCartUtilities.getInstance().getDataFolder() + File.separator + "config.yml");
         if (!configFile.exists()) {
             MineCartUtilities.getInstance().saveResource("config.yml", true);
@@ -23,19 +28,10 @@ public class MineCartUtilities extends JavaPlugin {
 
         try {
             getConfig().load(configFile);
-        } catch (InvalidConfigurationException e) {
-            Logger.error(e.getMessage());
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            Logger.error(e.getMessage());
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InvalidConfigurationException | IOException e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
         }
-
-        Logger.debug(getConfig().getString("keepChunksLoaded"));
-        Logger.success("Started MineCartUtilities successfully");
     }
 
     public static MineCartUtilities getInstance() {
