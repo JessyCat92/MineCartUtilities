@@ -16,7 +16,13 @@ public class Logger {
     }
 
     public static void debug(String msg) {
-        Logger.runLogging("debug", ChatColor.DARK_BLUE, msg);
+        Logger.runLogging("debug", ChatColor.LIGHT_PURPLE, msg);
+    }
+
+    public static void debugOnDebug(String msg) {
+        if (MineCartUtilities.getInstance().getConfig().getBoolean("debug")) {
+            Logger.runLogging("debug", ChatColor.LIGHT_PURPLE, msg);
+        }
     }
 
     public static void success(String msg) {

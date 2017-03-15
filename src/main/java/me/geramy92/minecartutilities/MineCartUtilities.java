@@ -18,6 +18,7 @@ public class MineCartUtilities extends JavaPlugin {
 
         // load Listener if keepChunksLoaded is set
         if (getConfig().getBoolean("keepChunksLoaded")) {
+            Logger.debugOnDebug("Registered Events for keepChunksLoaded = true");
             getServer().getPluginManager().registerEvents(new KeepChunksLoaded(), this);
         }
 

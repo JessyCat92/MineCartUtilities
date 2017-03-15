@@ -1,3 +1,6 @@
 # This will keep loaded chunks loaded if there is a minecart moving
 # as a sideeffect if a minecart enters a new chunk this will be loaded too
 keepChunksLoaded: true
+
+## for developing or issues this will activate more outputs in console
+debug: false

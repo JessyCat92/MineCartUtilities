@@ -1,5 +1,6 @@
 package me.geramy92.minecartutilities.features;
 
+import me.geramy92.minecartutilities.utilities.Logger;
 import me.geramy92.minecartutilities.utilities.MineCartHelper;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -18,6 +19,7 @@ public class KeepChunksLoaded implements Listener {
             if (MineCartHelper.isEntityAMineCart(entity) && entity.getVelocity().length() > 0) {
                 event.setSaveChunk(true);
                 event.setCancelled(true);
+                Logger.debugOnDebug("Keep Chunk loaded for Minecart.");
                 break;
             }
         }
@@ -30,6 +32,7 @@ public class KeepChunksLoaded implements Listener {
 
         if (!chunk.isLoaded()) {
             chunk.load();
+            Logger.debugOnDebug("Loaded new Chunk for Minecart.");
         }
     }
 }
