@@ -8,7 +8,7 @@ MineCartUtilities for Minecraft 1.11.2
 
 
 ### Features
-- Keep loaded/load Chunks for Minecarts (to keep them moving)
+- [Work in Progress] Keep loaded/load Chunks for Minecarts (to keep them moving)
 
 ### Planned Features
 - Store Velocity after server shutdown of MineCarts and start moving them after new Server startup
