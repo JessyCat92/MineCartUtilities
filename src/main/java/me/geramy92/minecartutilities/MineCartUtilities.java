@@ -1,5 +1,6 @@
 package me.geramy92.minecartutilities;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -8,6 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MineCartUtilities extends JavaPlugin{
     @Override
     public void onEnable() {
-        getLogger().info("Started MineCartUtilities");
+        Bukkit.getConsoleSender().sendMessage("Started MineCartUtilities");
     }
 }
