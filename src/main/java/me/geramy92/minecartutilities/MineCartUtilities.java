@@ -1,14 +1,19 @@
 package me.geramy92.minecartutilities;
 
-import org.bukkit.Bukkit;
+import me.geramy92.minecartutilities.utilities.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-/**
- * Created by Geramy92 on 14.03.2017.
- */
-public class MineCartUtilities extends JavaPlugin{
+public class MineCartUtilities extends JavaPlugin {
+    private static MineCartUtilities mineCartUtilitiesInstance;
+
     @Override
     public void onEnable() {
-        Bukkit.getConsoleSender().sendMessage("Started MineCartUtilities");
+        MineCartUtilities.mineCartUtilitiesInstance = this;
+
+        Logger.success("Started MineCartUtilities successfully");
+    }
+
+    public static MineCartUtilities getInstance() {
+        return mineCartUtilitiesInstance;
     }
 }
