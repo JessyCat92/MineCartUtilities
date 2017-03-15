@@ -27,7 +27,6 @@ public class KeepChunksLoaded implements Listener {
     @EventHandler
     public void onVehicleMove(VehicleMoveEvent event) {
         Location to = event.getTo();
-        Chunk chunk = to.getChunk();
 
         // to be sure we load all chunks in range
         int range = 5;
