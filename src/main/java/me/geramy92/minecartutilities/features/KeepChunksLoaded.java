@@ -30,18 +30,18 @@ public class KeepChunksLoaded implements Listener {
         Location to = event.getTo();
         Chunk chunk = to.getChunk();
 
-        if (!chunk.isLoaded()) {
+        if (!to.getWorld().isChunkLoaded(chunk)) {
             chunk.load();
             Logger.debugOnDebug("Loaded new Chunk for Minecart.");
         }
 
         // to be sure we load all chunks in range
-        int range = 2;
+        int range = 5;
         for (int dx = -(range); dx <= range; dx++) {
             for (int dz = -(range); dz <= range; dz++) {
                 Chunk newChunk = to.getWorld().getChunkAt(chunk.getX() + dx, chunk.getZ() + dz);
                 // Only load in chunks that are not already loaded
-                if (!newChunk.isLoaded()) {
+                if (!to.getWorld().isChunkLoaded(newChunk)) {
                     Logger.debugOnDebug("Loaded new Chunk for Minecart.");
                     to.getWorld().loadChunk(newChunk);
                 }
