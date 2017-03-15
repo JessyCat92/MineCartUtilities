@@ -33,8 +33,10 @@ public class KeepChunksLoaded implements Listener {
         for (int dx = -(range); dx <= range; dx++) {
             for (int dz = -(range); dz <= range; dz++) {
                 Chunk newChunk = to.getWorld().getChunkAt(to.getBlockX() + dx, to.getBlockZ() + dz);
-                to.getWorld().loadChunk(newChunk);
-                Logger.debugOnDebug("Loaded new Chunk for Minecart.");
+                if (to.getWorld().isChunkLoaded(newChunk)) {
+                    to.getWorld().loadChunk(newChunk);
+                    Logger.debugOnDebug("Loaded new Chunk for Minecart.");
+                }
             }
         }
     }
