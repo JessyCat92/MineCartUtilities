@@ -17,7 +17,6 @@ public class KeepChunksLoaded implements Listener {
         Entity[] entities = event.getChunk().getEntities();
         for (Entity entity : entities) {
             if (MineCartHelper.isEntityAMineCart(entity) && entity.getVelocity().length() > 0) {
-                event.setSaveChunk(true);
                 event.setCancelled(true);
                 Logger.debugOnDebug("Keep Chunk loaded for Minecart.");
                 break;
@@ -30,22 +29,13 @@ public class KeepChunksLoaded implements Listener {
         Location to = event.getTo();
         Chunk chunk = to.getChunk();
 
-//        if (!to.getWorld().isChunkLoaded(chunk)) {
-//            chunk.load();
-//            Logger.debugOnDebug("Loaded new Chunk for Minecart.");
-//        }
-
         // to be sure we load all chunks in range
         int range = 5;
         for (int dx = -(range); dx <= range; dx++) {
             for (int dz = -(range); dz <= range; dz++) {
-                Chunk newChunk = to.getWorld().getChunkAt(chunk.getX() + dx, chunk.getZ() + dz);
-                // Only load in chunks that are not already loaded
-//                if (!to.getWorld().isChunkLoaded(newChunk)) {
-                    Logger.debugOnDebug("Loaded new Chunk for Minecart.");
-                    newChunk.load(true);
-                    to.getWorld().loadChunk(newChunk);
-//                }
+                Chunk newChunk = to.getWorld().getChunkAt(to.getBlockX() + dx, to.getBlockZ() + dz);
+                to.getWorld().loadChunk(newChunk);
+                Logger.debugOnDebug("Loaded new Chunk for Minecart.");
             }
         }
     }
