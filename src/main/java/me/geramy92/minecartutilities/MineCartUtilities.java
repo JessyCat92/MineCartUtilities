@@ -1,5 +1,6 @@
 package me.geramy92.minecartutilities;
 
+import me.geramy92.minecartutilities.features.KeepChunksLoaded;
 import me.geramy92.minecartutilities.utilities.Logger;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,6 +15,12 @@ public class MineCartUtilities extends JavaPlugin {
     public void onEnable() {
         MineCartUtilities.mineCartUtilitiesInstance = this;
         this.loadConfiguration();
+
+        // load Listener if keepChunksLoaded is set
+        if (getConfig().getBoolean("keepChunksLoaded")) {
+            getServer().getPluginManager().registerEvents(new KeepChunksLoaded(), this);
+        }
+
         Logger.success("Started MineCartUtilities successfully");
     }
 
