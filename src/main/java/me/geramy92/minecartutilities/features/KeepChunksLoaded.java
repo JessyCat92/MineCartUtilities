@@ -2,7 +2,6 @@ package me.geramy92.minecartutilities.features;
 
 import me.geramy92.minecartutilities.utilities.Logger;
 import me.geramy92.minecartutilities.utilities.MineCartHelper;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
@@ -29,12 +28,13 @@ public class KeepChunksLoaded implements Listener {
         Location to = event.getTo();
 
         // to be sure we load all chunks in range
-        int range = 2;
+        int range = 5;
         for (int dx = -(range); dx <= range; dx++) {
             for (int dz = -(range); dz <= range; dz++) {
-                Chunk newChunk = to.getWorld().getChunkAt(to.getBlockX() + dx, to.getBlockZ() + dz);
-                if (!to.getWorld().isChunkLoaded(newChunk)) {
-                    to.getWorld().loadChunk(newChunk);
+                Location location = new Location(to.getWorld(), to.getBlockX() + dx, to.getBlockY(), to.getBlockZ() + dz);
+
+                if (!location.getWorld().isChunkLoaded(location.getBlockX()/16, location.getBlockZ()/16)) {
+                    to.getWorld().loadChunk(location.getChunk());
                     Logger.debugOnDebug("Loaded new Chunk for Minecart.");
                 }
             }
