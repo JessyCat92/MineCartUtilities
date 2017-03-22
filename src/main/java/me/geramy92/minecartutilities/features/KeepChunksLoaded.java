@@ -2,14 +2,26 @@ package me.geramy92.minecartutilities.features;
 
 import me.geramy92.minecartutilities.utilities.Logger;
 import me.geramy92.minecartutilities.utilities.MineCartHelper;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
+import java.util.ArrayList;
+
 public class KeepChunksLoaded implements Listener {
+    private ArrayList<Chunk> loadedChunks = new ArrayList<>();
+
+    @EventHandler
+    public void onChunkLoad(ChunkLoadEvent event) {
+        if (!loadedChunks.contains(event.getChunk())) {
+            loadedChunks.add(event.getChunk());
+        }
+    }
 
     @EventHandler
     public void onChunkUnload(ChunkUnloadEvent event) {
@@ -19,6 +31,10 @@ public class KeepChunksLoaded implements Listener {
                 event.setCancelled(true);
                 Logger.debugOnDebug("Keep Chunk loaded for Minecart.");
                 break;
+            } else {
+                if (loadedChunks.contains(event.getChunk())) {
+                    loadedChunks.remove(event.getChunk());
+                }
             }
         }
     }
@@ -33,7 +49,7 @@ public class KeepChunksLoaded implements Listener {
             for (int dz = -(range); dz <= range; dz++) {
                 Location location = new Location(to.getWorld(), to.getBlockX() + dx, to.getBlockY(), to.getBlockZ() + dz);
 
-                if (!location.getWorld().isChunkLoaded(location.getBlockX()/16, location.getBlockZ()/16)) {
+                if (!loadedChunks.contains(location.getChunk())) {
                     to.getWorld().loadChunk(location.getChunk());
                     Logger.debugOnDebug("Loaded new Chunk for Minecart.");
                 }
